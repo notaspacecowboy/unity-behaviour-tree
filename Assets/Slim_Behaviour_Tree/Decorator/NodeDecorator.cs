@@ -10,12 +10,18 @@ namespace SlimBehaviourTree
 {
     public abstract class NodeDecorator : Behaviour
     {
-        public Behaviour Child { get; protected set; }
+        protected Behaviour _child;
 
-        public NodeDecorator(string name, Behaviour child) : base(name)
+        public NodeDecorator(string name, string type, Behaviour child) : base(name, type)
         {
-            base.Type = "Decorator";
-            Child = child;
+            SetChild(child);
+        }
+
+        public void SetChild(Behaviour child)
+        {
+            child.ParentTree = this.ParentTree;
+            child.Data = this.Data;
+            _child = child;
         }
     }
 }

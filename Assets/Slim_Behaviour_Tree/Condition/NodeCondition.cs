@@ -11,9 +11,8 @@ namespace SlimBehaviourTree
 {
     public abstract class NodeCondition : Behaviour
     {
-        public NodeCondition(string name) : base(name)
+        public NodeCondition(string name) : base(name, "Condition")
         {
-            base.Type = "Condition";
         }
     }
 }

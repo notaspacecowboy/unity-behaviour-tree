@@ -11,20 +11,19 @@ namespace SlimBehaviourTree
 {
     public class NodeSequence : NodeComposite
     {
-        private int lastIndex;
+        private int _lastIndex;
 
-        public NodeSequence(string name, List<Behaviour> nodes) : base(name, nodes)
+        public NodeSequence(string name, List<Behaviour> nodes) : base(name, "Sequence", nodes)
         {
-            base.Type = "Sequence";
-            lastIndex = 0;
+            _lastIndex = 0;
         }
 
         protected override BehaviourStatus Execute(BaseInput input)
         {
             BehaviourStatus result;
-            for (int i = lastIndex; i < base.ChildrenCount; i++)
+            for (int i = _lastIndex; i < base.ChildrenCount; i++)
             {
-                result = base.Children[i].Tick(input);
+                result = base._children[i].Tick(input);
                 
                 if (result == BehaviourStatus.Success)
                     continue;
@@ -37,7 +36,7 @@ namespace SlimBehaviourTree
 
                 if (result == BehaviourStatus.Running)
                 {
-                    lastIndex = i;
+                    _lastIndex = i;
                     base.CurrentStatus = BehaviourStatus.Running;
                     return CurrentStatus;
                 }

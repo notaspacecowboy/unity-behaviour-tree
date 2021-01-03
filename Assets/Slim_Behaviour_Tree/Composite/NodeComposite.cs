@@ -11,71 +11,85 @@ namespace SlimBehaviourTree
     public abstract class NodeComposite : Behaviour
     {
         #region Public Properties
-
         public int ChildrenCount
         {
             get
             {
-                return Children.Count;
+                return _children.Count;
             }
         }
-
-        //tree properties
-        public List<Behaviour> Children { get; private set; }
-
         #endregion
 
         #region Public Methods
-        public NodeComposite(string name, List<Behaviour> nodes) : base(name)
+        public NodeComposite(string name, string type, List<Behaviour> nodes) : base(name, "Composite")
         {
-            base.Type = "Composite";
-            this.Children = nodes;
-
-            if (nodes == null)
-            {
-                this.Children = new List<Behaviour>();
-            }
+            this.InitChildren(nodes);
         }
 
         //tree operations
 
         public void AddChild(Behaviour node)
         {
-            Children.Add(node);
-            node.Parent = this;
+            node.ParentTree = this.ParentTree;
+            node.Data = this.Data;
+            _children.Add(node);
         }
 
         public void RemoveChild(Behaviour node)
         {
-            Children.Remove(node);
+            _children.Remove(node);
         }
 
         public void InsertChild(Behaviour node, Behaviour prevNode)
         {
+            node.ParentTree = this.ParentTree;
+            node.Data = this.Data;
+
             int i;
-            for (i = 0; i < Children.Count; i++)
+            for (i = 0; i < _children.Count; i++)
             {
-                if (Children[i] == prevNode)
+                if (_children[i] == prevNode)
                     break;
             }
 
-            if (i != Children.Count)
+            if (i != _children.Count)
                 i++;
-            Children.Insert(i, node);
+
+            _children.Insert(i, node);
         }
 
         public void ReplaceChild(Behaviour oldNode, Behaviour newNode)
         {
-            for (int i = 0; i < Children.Count; i++)
+            newNode.ParentTree = this.ParentTree;
+            newNode.Data = this.Data;
+
+            for (int i = 0; i < _children.Count; i++)
             {
-                if (Children[i] == oldNode)
-                    Children[i] = newNode;
+                if (_children[i] == oldNode)
+                    _children[i] = newNode;
             }
         }
 
         public bool ContainsChild(Behaviour node)
         {
-            return Children.Contains(node);
+            return _children.Contains(node);
+        }
+        #endregion
+
+        #region Private Instance Variables
+        //tree properties
+        protected List<Behaviour> _children;
+        #endregion
+
+        #region Private Methods
+        private void InitChildren(List<Behaviour> nodes)
+        {
+            this._children = new List<Behaviour>();
+
+            foreach (var child in nodes)
+            {
+                AddChild(child);
+            }
         }
 
         #endregion

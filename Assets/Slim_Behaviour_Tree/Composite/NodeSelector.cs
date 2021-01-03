@@ -13,11 +13,10 @@ namespace SlimBehaviourTree
         /// <summary>
         /// index of the child node to execute first
         /// </summary>
-        private int lastIndex;
-        public NodeSelector(string name, List<Behaviour> nodes) : base(name, nodes)
+        private int _lastIndex;
+        public NodeSelector(string name, List<Behaviour> nodes) : base(name, "Selector", nodes)
         {
-            base.Type = "Selector";
-            lastIndex = 0;
+            _lastIndex = 0;
         }
 
         protected override BehaviourStatus Execute(BaseInput input)
@@ -25,9 +24,9 @@ namespace SlimBehaviourTree
 
 
             BehaviourStatus result;
-            for (int i = lastIndex; i < base.ChildrenCount; i++)
+            for (int i = _lastIndex; i < base.ChildrenCount; i++)
             {
-                result = base.Children[i].Tick(input);
+                result = base._children[i].Tick(input);
 
                 if (result == BehaviourStatus.Success)
                     continue;
@@ -40,7 +39,7 @@ namespace SlimBehaviourTree
 
                 if (result == BehaviourStatus.Running)
                 {
-                    lastIndex = i;
+                    _lastIndex = i;
                     base.CurrentStatus = BehaviourStatus.Running;
                     return CurrentStatus;
                 }

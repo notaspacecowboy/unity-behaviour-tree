@@ -12,23 +12,23 @@ using UnityEngine.Experimental.AI;
 
 namespace SlimBehaviourTree
 {
-    public abstract class Behaviour : IBehaviour
+    public abstract class Behaviour
     {
-        #region Public Properties
-
-        public string Name { get; set; }
-        public string Type { get; protected set; }
-        public Behaviour Parent { get; set; }
-        public BehaviourStatus CurrentStatus { get; protected set; }
+        #region Private Instance Variables
+        public string Name { get; private set;}
+        public string Type { get; private set;}
+        public BehaviourStatus CurrentStatus { get; set;}
+        public BehaviourTree ParentTree { get; set;}
+        public Blackboard Data { get; set;}
 
         #endregion
 
         #region Public Methods
 
-        public Behaviour(string name)
+        public Behaviour(string name, string type)
         {
-            Name = "Node";
-            Type = "Node";
+            Name = name;
+            Type = type;
             CurrentStatus = BehaviourStatus.Ready;
         }
 

@@ -10,20 +10,19 @@ namespace SlimBehaviourTree
 {
     public class NodeRandomSelector : NodeComposite
     {
-        private int lastIndex;
+        private int _lastIndex;
 
-        public NodeRandomSelector(string name, List<Behaviour> nodes) : base(name, nodes)
+        public NodeRandomSelector(string name, List<Behaviour> nodes) : base(name, "RandomSelector", nodes)
         {
-            base.Type = "RandomSelector";
-            lastIndex = 0;
+            _lastIndex = 0;
         }
 
         protected override BehaviourStatus Execute(BaseInput input)
         {
             BehaviourStatus result;
-            for (int i = lastIndex; i < base.ChildrenCount; i++)
+            for (int i = _lastIndex; i < base.ChildrenCount; i++)
             {
-                result = base.Children[i].Tick(input);
+                result = base._children[i].Tick(input);
 
                 if (result == BehaviourStatus.Success)
                     continue;
@@ -36,7 +35,7 @@ namespace SlimBehaviourTree
 
                 if (result == BehaviourStatus.Running)
                 {
-                    lastIndex = i;
+                    _lastIndex = i;
                     base.CurrentStatus = BehaviourStatus.Running;
                     return CurrentStatus;
                 }
@@ -56,15 +55,15 @@ namespace SlimBehaviourTree
             Behaviour lastRunningNode = null;
             if (CurrentStatus == BehaviourStatus.Running)
             {
-                lastRunningNode = Children[lastIndex];
+                lastRunningNode = _children[_lastIndex];
             }
 
             for (int i = base.ChildrenCount; i >= 0; i--)
             {
                 int toSwitch = Random.Range(0, i);
-                Behaviour tmp = Children[i - 1];
-                Children[i - 1] = Children[toSwitch];
-                Children[toSwitch] = tmp;
+                Behaviour tmp = _children[i - 1];
+                _children[i - 1] = _children[toSwitch];
+                _children[toSwitch] = tmp;
             }
 
             if (lastRunningNode == null)
@@ -72,11 +71,11 @@ namespace SlimBehaviourTree
 
             for (int i = 0; i < base.ChildrenCount; i++)
             {
-                if (Children[i] == lastRunningNode)
+                if (_children[i] == lastRunningNode)
                 {
-                    Behaviour tmp = Children[i];
-                    Children[i] = Children[0];
-                    Children[0] = tmp;
+                    Behaviour tmp = _children[i];
+                    _children[i] = _children[0];
+                    _children[0] = tmp;
 
                     break;
                 }

@@ -10,9 +10,8 @@ namespace SlimBehaviourTree
 {
     public abstract class NodeAction : Behaviour
     {
-        public NodeAction(string name) : base(name)
+        public NodeAction(string name) : base(name, "Action")
         {
-            base.Type = "Action";
         }
     }
 }

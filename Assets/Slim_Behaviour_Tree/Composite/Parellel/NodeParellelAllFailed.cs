@@ -10,16 +10,15 @@ namespace SlimBehaviourTree
 {
     public class NodeParellelAllFailed : NodeComposite
     {
-        public NodeParellelAllFailed(string name, List<Behaviour> nodes) : base(name, nodes)
+        public NodeParellelAllFailed(string name, List<Behaviour> nodes) : base(name, "ParellelAllFailed", nodes)
         {
-            base.Type = "ParellelAllFailed";
         }
 
         protected override BehaviourStatus Execute(BaseInput input)
         {
             BehaviourStatus result;
             int count = 0;
-            foreach (var child in Children)
+            foreach (var child in _children)
             {
                 result = child.Tick(input);
 

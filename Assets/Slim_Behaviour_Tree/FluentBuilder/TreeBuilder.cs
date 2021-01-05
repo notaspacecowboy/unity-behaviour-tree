@@ -33,7 +33,7 @@ namespace SlimBehaviourTree
             return _currentTree;
         }
 
-        public void End()
+        public TreeBuilder End()
         {
             if (_nodes.Count == 0)
             {
@@ -41,9 +41,11 @@ namespace SlimBehaviourTree
             }
 
             _nodes.Pop();
+
+            return this;
         }
 
-        private void PushComposite(Behaviour current)
+        private TreeBuilder PushComposite(Behaviour current)
         {
             if (_nodes.Count == 0 && _currentTree.GetRoot() != null)
             {
@@ -70,9 +72,11 @@ namespace SlimBehaviourTree
                     _nodes.Push(current);
                 }
             }
+
+            return this;
         }
 
-        private void PushLeaf(Behaviour current)
+        private TreeBuilder PushLeaf(Behaviour current)
         {
             if (_nodes.Count == 0 && _currentTree.GetRoot() != null)
             {
@@ -96,6 +100,8 @@ namespace SlimBehaviourTree
                     _nodes.Pop();
                 }
             }
+
+            return this;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace SlimBehaviourTree
         #endregion
 
         #region Public Methods
-        public NodeComposite(string name, string type, List<Behaviour> nodes) : base(name, "Composite")
+        public NodeComposite(string name, List<Behaviour> nodes) : base(name, "Composite")
         {
             this.InitChildren(nodes);
         }
@@ -35,7 +35,7 @@ namespace SlimBehaviourTree
             _children.Add(node);
         }
 
-        public void RemoveChild(Behaviour node)
+        protected void RemoveChild(Behaviour node)
         {
             _children.Remove(node);
         }

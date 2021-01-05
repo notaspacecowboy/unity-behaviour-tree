@@ -12,7 +12,7 @@ namespace SlimBehaviourTree
     {
         protected Behaviour _child;
 
-        public NodeDecorator(string name, string type, Behaviour child) : base(name, type)
+        public NodeDecorator(string name, string type, Behaviour child) : base(name, "Decorator")
         {
             SetChild(child);
         }

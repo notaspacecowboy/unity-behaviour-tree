@@ -4,6 +4,7 @@
 //=============================
 using System.Collections;
 using System.Collections.Generic;
+using LitJson;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -11,22 +12,26 @@ namespace SlimBehaviourTree
 {
     public class BehaviourTree
     {
-        private string _treeName;
-        private Behaviour _root;
-        private Blackboard _data;
+        public string TreeName { get; set;}
 
         public BehaviourTree(string name)
         {
-            _treeName = name;
+            TreeName = name;
             _root = null;   
             _data = new Blackboard();
         }
-        public BehaviourTree(string name, Behaviour root)
-        {
-            _treeName = name;
-            _data = new Blackboard();
 
-            SetRoot(root);
+        public void ReadData(string jsonTxt)
+        {
+            JsonData data = JsonMapper.ToObject(jsonTxt);
+
+            int i = 0;
+            foreach (var key in data.Keys)
+            {
+                _data.SetValue(key, data[key]);
+            }
+            
+            _data.print();
         }
 
         public void SetRoot(Behaviour root)
@@ -35,9 +40,17 @@ namespace SlimBehaviourTree
             _root.Data = this._data;
         }
 
+        public Behaviour GetRoot()
+        {
+            return _root;
+        }
+
         public void Run(BaseInput input)
         {
             _root.Tick(input);
         }
+
+        private Behaviour _root;
+        private Blackboard _data;
     }
 }

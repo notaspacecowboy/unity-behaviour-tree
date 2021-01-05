@@ -6,12 +6,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using LitJson;
 using UnityEngine;
 
 namespace SlimBehaviourTree
 {
     public class Blackboard
     {
+        [Serializable]
         public class BlackboardAsset
         {
             private object _value;
@@ -33,6 +36,11 @@ namespace SlimBehaviourTree
         }
 
         private Dictionary<string, BlackboardAsset> _boardAssets;
+
+        public Blackboard()
+        {
+            _boardAssets = new Dictionary<string, BlackboardAsset>();
+        }
 
         public void SetValue(string key, object value)
         {
@@ -68,6 +76,14 @@ namespace SlimBehaviourTree
         public bool ContainsKey(string key)
         {
             return _boardAssets.ContainsKey(key);
+        }
+
+        public void print()
+        {
+            foreach (var pair in _boardAssets)
+            {
+                Debug.LogFormat("key: {0} value: {1}", pair.Key, pair.Value.GetValue());
+            }
         }
     }
 }

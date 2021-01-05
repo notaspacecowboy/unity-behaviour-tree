@@ -10,7 +10,7 @@ namespace SlimBehaviourTree
 {
     public class NodeParellelAllFailed : NodeComposite
     {
-        public NodeParellelAllFailed(string name, List<Behaviour> nodes) : base(name, "ParellelAllFailed", nodes)
+        public NodeParellelAllFailed(string name, List<Behaviour> nodes) : base("ParellelAllFailed", nodes)
         {
         }
 

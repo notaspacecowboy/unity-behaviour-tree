@@ -12,7 +12,7 @@ namespace SlimBehaviourTree
     {
         private int _lastIndex;
 
-        public NodeRandomSelector(string name, List<Behaviour> nodes) : base(name, "RandomSelector", nodes)
+        public NodeRandomSelector(string name, List<Behaviour> nodes) : base("RandomSelector", nodes)
         {
             _lastIndex = 0;
         }

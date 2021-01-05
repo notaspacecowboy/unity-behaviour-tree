@@ -14,7 +14,7 @@ namespace SlimBehaviourTree
         /// index of the child node to execute first
         /// </summary>
         private int _lastIndex;
-        public NodeSelector(string name, List<Behaviour> nodes) : base(name, "Selector", nodes)
+        public NodeSelector(string name, List<Behaviour> nodes) : base("Selector", nodes)
         {
             _lastIndex = 0;
         }

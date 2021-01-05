@@ -13,7 +13,7 @@ namespace SlimBehaviourTree
     {
         private int _lastIndex;
 
-        public NodeSequence(string name, List<Behaviour> nodes) : base(name, "Sequence", nodes)
+        public NodeSequence(string name, List<Behaviour> nodes) : base("Sequence", nodes)
         {
             _lastIndex = 0;
         }

@@ -31,7 +31,7 @@ namespace SlimBehaviourTree
                 _data.SetValue(key, data[key]);
             }
             
-            _data.print();
+            //_data.Print();
         }
 
         public void SetRoot(Behaviour root)

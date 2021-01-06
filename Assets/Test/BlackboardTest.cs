@@ -17,7 +17,7 @@ public class BlackboardTest : MonoBehaviour
         b.SetValue("test2", "yangzheng");
         b.SetValue("test3", false);
 
-        b.print();
+        //b.Print();
     }
 
     // Update is called once per frame

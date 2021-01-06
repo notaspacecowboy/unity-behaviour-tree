@@ -78,7 +78,7 @@ namespace SlimBehaviourTree
             return _boardAssets.ContainsKey(key);
         }
 
-        public void print()
+        public void Print()
         {
             foreach (var pair in _boardAssets)
             {

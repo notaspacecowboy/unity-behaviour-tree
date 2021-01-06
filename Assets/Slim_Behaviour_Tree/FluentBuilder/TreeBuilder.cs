@@ -15,14 +15,6 @@ namespace SlimBehaviourTree
 {
     public class TreeBuilder
     {
-        private BehaviourTree _currentTree;
-        private Stack<Behaviour> _nodes;
-        private TreeBuilder(string name, string jsonFilePath)
-        {
-            _currentTree = new BehaviourTree(name);
-            string jsonTxt = Resources.Load<TextAsset>(jsonFilePath).text;
-            _currentTree.ReadData(jsonTxt);
-        }
         public static TreeBuilder Init(string name, string jsonFilePath)
         {
             return new TreeBuilder(name, jsonFilePath);
@@ -30,6 +22,10 @@ namespace SlimBehaviourTree
 
         public BehaviourTree Build()
         {
+            if (_nodes.Count != 0)
+            {
+                throw new InvalidOperationException("Failed to build the tree! Nodes not fulfilled yet");
+            }
             return _currentTree;
         }
 
@@ -45,7 +41,73 @@ namespace SlimBehaviourTree
             return this;
         }
 
-        private TreeBuilder PushComposite(Behaviour current)
+        public TreeBuilder Do(string name, Func<BaseInput, BehaviourStatus> action)
+        {
+            NodeAction node = new NodeAction(name, action);
+            return PushLeaf(node);
+        }
+
+        public TreeBuilder Condition(string name, Func<BaseInput, bool> condition)
+        {
+            NodeCondition node = new NodeCondition(name, condition);
+            return this.PushLeaf(node);
+        }
+
+        public TreeBuilder Selector()
+        {
+            NodeSelector node = new NodeSelector();
+            return PushInternal(node);
+        }
+
+        public TreeBuilder Sequence()
+        {
+            NodeSequence node = new NodeSequence();
+            return PushInternal(node);
+        }
+
+        public TreeBuilder RandomSelector()
+        {
+            NodeRandomSelector node = new NodeRandomSelector();
+            return PushInternal(node);
+        }
+
+        public TreeBuilder RandomSequence()
+        {
+            NodeRandomSequence node = new NodeRandomSequence();
+            return PushInternal(node);
+        }
+
+        public TreeBuilder ParellelAllFailed()
+        {
+            NodeParellelAllFailed node = new NodeParellelAllFailed();
+            return PushInternal(node);
+        }
+
+        public TreeBuilder ParellelAllSucceed()
+        {
+            NodeParellelAllSucceed node = new NodeParellelAllSucceed();
+            return PushInternal(node);
+        }
+
+        #region Private Variables
+
+        private BehaviourTree _currentTree;
+        private Stack<Behaviour> _nodes;
+
+        #endregion
+
+        #region Private Methods
+
+        private TreeBuilder(string name, string jsonFilePath)
+        {
+            _nodes = new Stack<Behaviour>();
+
+            _currentTree = new BehaviourTree(name);
+            string jsonTxt = Resources.Load<TextAsset>(jsonFilePath).text;
+            _currentTree.ReadData(jsonTxt);
+        }
+
+        private TreeBuilder PushInternal(Behaviour current)
         {
             if (_nodes.Count == 0 && _currentTree.GetRoot() != null)
             {
@@ -103,5 +165,7 @@ namespace SlimBehaviourTree
 
             return this;
         }
+
+        #endregion
     }
 }

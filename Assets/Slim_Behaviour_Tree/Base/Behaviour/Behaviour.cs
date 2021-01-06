@@ -83,7 +83,6 @@ namespace SlimBehaviourTree
             if (CurrentStatus != BehaviourStatus.Running)
             {
                 OnExit(input);
-                CurrentStatus = BehaviourStatus.Ready;
             }
         }
 

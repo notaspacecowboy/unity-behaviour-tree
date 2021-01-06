@@ -15,7 +15,7 @@ namespace SlimBehaviourTree
         // Start is called before the first frame update
         private int _lastIndex;
 
-        public NodeRandomSequence(string name, List<Behaviour> nodes) : base("RandomSequence", nodes)
+        public NodeRandomSequence() : base("RandomSequence")
         {
             _lastIndex = 0;
         }

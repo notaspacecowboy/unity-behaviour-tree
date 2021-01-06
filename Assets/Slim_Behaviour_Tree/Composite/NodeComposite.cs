@@ -21,9 +21,9 @@ namespace SlimBehaviourTree
         #endregion
 
         #region Public Methods
-        public NodeComposite(string name, List<Behaviour> nodes) : base(name, "Composite")
+        public NodeComposite(string name) : base(name, "Composite")
         {
-            this.InitChildren(nodes);
+            _children = new List<Behaviour>();
         }
 
         //tree operations
@@ -79,19 +79,6 @@ namespace SlimBehaviourTree
         #region Private Instance Variables
         //tree properties
         protected List<Behaviour> _children;
-        #endregion
-
-        #region Private Methods
-        private void InitChildren(List<Behaviour> nodes)
-        {
-            this._children = new List<Behaviour>();
-
-            foreach (var child in nodes)
-            {
-                AddChild(child);
-            }
-        }
-
         #endregion
     }
 }

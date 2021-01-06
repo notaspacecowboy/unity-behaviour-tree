@@ -1,4 +1,8 @@
 # Slim-Behaviour-Tree
+## Table of Contents
+  * [Demo](#Demo)
+  * [Features](#Features)
+  * [Examples of Usage with Description](#Examples-of-Usage-with-Description)
 ## Demo
 Coming soon
 
@@ -8,3 +12,5 @@ Coming soon
 * Blackboard to share data between nodes.
 * Fluent builder
 * Gaphical Editor to view and edit trees <--- coming soon
+
+## Examples of Usage with Description

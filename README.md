@@ -20,8 +20,8 @@ BehaviourTree tree = TreeBuilder.Init("testTree1", "JsonTest1")
                         .Selector().Do("TestAction1", TestAction1)
                                    .Condition("ConditionTest1", TestCondition1)
                                    .Do("TestAction2", TestAction2)
-                                .End()
-                                .Build();
+                        .End()
+                        .Build();
 
 tree.Run(new BaseInput());
 ```

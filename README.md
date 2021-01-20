@@ -1,4 +1,4 @@
-# Slim-Behaviour-Tree
+# Slim Behaviour Tree
 ## Table of Contents
   * [Demo](#Demo)
   * [Features](#Features)

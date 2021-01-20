@@ -2,7 +2,7 @@
 ## Table of Contents
   * [Demo](#Demo)
   * [Features](#Features)
-  * [Examples of Usage with Description](#Examples-of-Usage)
+  * [Examples of Usage](#Examples-of-Usage)
 ## Demo
 Coming soon
 

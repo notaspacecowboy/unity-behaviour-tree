@@ -2,7 +2,7 @@
 ## Table of Contents
   * [Demo](#Demo)
   * [Features](#Features)
-  * [Examples of Usage with Description](#Examples-of-Usage-with-Description)
+  * [Examples of Usage with Description](#Examples-of-Usage)
 ## Demo
 Coming soon
 
@@ -14,7 +14,7 @@ Coming soon
 * More pre-built behaviors will be added <--- coming soon
 * Gaphical Editor to view and edit trees <--- coming soon
 
-## Examples of Usage with Description
+## Examples of Usage
 ```
 BehaviourTree tree = TreeBuilder.Init("testTree1", "JsonTest1")
                         .Selector().Do("TestAction1", TestAction1)
